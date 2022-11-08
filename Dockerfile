@@ -1,5 +1,6 @@
 FROM node:18-alpine3.16 as build
 WORKDIR /opt/app
+USER root
 ADD *.json ./
 RUN npm install
 ADD . .
