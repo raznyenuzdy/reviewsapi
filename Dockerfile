@@ -1,4 +1,4 @@
-FROM node:18-alpine3.16 as build
+FROM node
 WORKDIR /opt/app
 USER root
 # ADD *.json ./
