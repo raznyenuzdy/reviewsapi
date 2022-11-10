@@ -1,19 +1,42 @@
-FROM node
-WORKDIR /opt/app
-USER root
-# ADD *.json ./
-# RUN npm install
-ADD . .
-ENV NODE_ENV=production
-RUN npm install
+FROM node:12.19.0-alpine3.9 AS development
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install glob rimraf
+RUN npm install --only=development
+COPY . .
 RUN npm run build
+FROM node:12.19.0-alpine3.9 as production
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install --only=production
+COPY . .
+COPY --from=development /usr/src/app/dist ./dist
+CMD ["node", "dist/main"]
 
-# FROM node:18-alpine3.16
-# WORKDIR /opt/app
-# ADD package.json ./
-# RUN npm install --only=prod
-# COPY --from=build /opt/app/dist ./dist
 
-# CMD ["npm", "run", "start:prod"]
-CMD ["npm", "./dist/main.js"]
-#EXPOSE 7000
+# FROM node:16-alpine as builder
+# ENV NODE_ENV build
+# USER node
+# WORKDIR /home/node
+# COPY package*.json ./
+# RUN npm ci
+# COPY --chown=node:node . .
+# RUN npm run build \
+#     && npm prune --production
+
+# # ---
+
+# FROM node:16-alpine
+
+# ENV NODE_ENV production
+
+# USER node
+# WORKDIR /home/node
+
+# COPY --from=builder --chown=node:node /home/node/package*.json ./
+# COPY --from=builder --chown=node:node /home/node/node_modules/ ./node_modules/
+# COPY --from=builder --chown=node:node /home/node/dist/ ./dist/
+
+# CMD ["node", "dist/server.js"]
