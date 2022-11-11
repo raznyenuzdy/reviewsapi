@@ -1,0 +1,74 @@
+version: '3.8'
+services:
+    dev:
+        container_name: nestjs_api_dev
+        image: nestjs-api-dev:1.0.0
+        build:
+            context: .
+            target: development
+            dockerfile: ./Dockerfile
+        command: npm run start:debug
+        ports:
+            # - 127.0.0.1:5432:5432
+            - 5000:5000
+        networks:
+            - nesjs-network
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        restart: unless-stopped
+    prod:
+        container_name: nestjs_api_prod
+        image: nestjs-api-prod:1.0.0
+        build:
+            context: .
+            target: production
+            dockerfile: ./Dockerfile
+        command: npm run start:prod
+        ports:
+            # - 127.0.0.1:5432:5432
+            - 7000:7000
+        networks:
+            - nesjs-network
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        restart: unless-stopped
+
+    nest_test_postgres:
+        container_name: nest_test_postgres
+        image: postgres:14
+        environment:
+            POSTGRES_USER: nest_test
+            POSTGRES_PASSWORD: nest_test
+            PGDATA: /data/postgres
+        volumes:
+            - postgres:/var/www/nest_test/docker-volumes/postgres
+        ports:
+            - 127.0.0.1:5432:5432
+        networks:
+            - nest_test
+        restart: unless-stopped
+
+    nest_test_pgadmin:
+        container_name: nest_test_pgadmin
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: nest_test@admin.com
+            PGADMIN_DEFAULT_PASSWORD: nest_test
+            PGADMIN_CONFIG_SERVER_MODE: 'False'
+        volumes:
+            - pgadmin:/var/www/nest_test/docker-volumes/pgadmin
+        ports:
+            - 127.0.0.1:5050:80
+        networks:
+            - nest_test
+        restart: unless-stopped
+
+networks:
+    nesjs-network:
+      driver: bridge
+
+volumes:
+    postgres:
+    pgadmin:
