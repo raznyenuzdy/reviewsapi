@@ -35,20 +35,21 @@ services:
             - /usr/src/app/node_modules
         restart: unless-stopped
 
-    nest_test_postgres:
+    postgres:
         container_name: nest_test_postgres
         image: postgres:14
         environment:
-            POSTGRES_USER: root
+            POSTGRES_USER: reviews
             POSTGRES_PASSWORD: gthbvtnh
             PGDATA: /data/postgres
         volumes:
-            - postgres:/var/www/nest_test/docker-volumes/postgres
+            - postgres:/postgres
         ports:
             - 127.0.0.1:5432:5432
         networks:
             - nesjs-network
         restart: unless-stopped
+        tty: true
 
     nest_test_pgadmin:
         container_name: nest_test_pgadmin
@@ -58,7 +59,7 @@ services:
             PGADMIN_DEFAULT_PASSWORD: lkbyyflkbyyf
             PGADMIN_CONFIG_SERVER_MODE: 'False'
         volumes:
-            - pgadmin:/var/www/nest_test/docker-volumes/pgadmin
+            - pgadmin:/var/www/pgadmin
         ports:
             - 127.0.0.1:5050:80
         networks:
