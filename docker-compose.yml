@@ -60,10 +60,10 @@ services:
             PGADMIN_CONFIG_SERVER_MODE: 'False'
         volumes:
             - pgadmin:/var/www/pgadmin
-        # ports:
+        ports:
             # - 127.0.0.1:80:5050
             # - 127.0.0.1:5050:5050
-            # - 80:5050
+            - 5050:80
         # networks:
             # - nesjs-network
         restart: unless-stopped
