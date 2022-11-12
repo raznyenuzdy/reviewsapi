@@ -62,6 +62,7 @@ services:
             - pgadmin:/var/www/pgadmin
         ports:
             - 127.0.0.1:5050:5050
+            - 80:80
         networks:
             - nesjs-network
         restart: unless-stopped
