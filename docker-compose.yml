@@ -36,7 +36,7 @@ services:
         restart: unless-stopped
 
     postgres:
-        container_name: nest_test_postgres
+        container_name: postgres
         image: postgres:14
         environment:
             POSTGRES_USER: reviews
@@ -51,7 +51,7 @@ services:
         restart: unless-stopped
         tty: true
 
-    nest_test_pgadmin:
+    pgadmin:
         container_name: pgadmin
         image: dpage/pgadmin4
         environment:
