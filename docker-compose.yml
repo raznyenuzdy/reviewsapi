@@ -52,7 +52,7 @@ services:
         tty: true
 
     nest_test_pgadmin:
-        container_name: nest_test_pgadmin
+        container_name: pgadmin
         image: dpage/pgadmin4
         environment:
             PGADMIN_DEFAULT_EMAIL: raznyenuzdy@gmail.com
