@@ -68,7 +68,7 @@ services:
 
 networks:
     nesjs-network:
-      driver: bridge
+      # driver: bridge
 
 volumes:
     postgres:
