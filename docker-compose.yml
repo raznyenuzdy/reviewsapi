@@ -76,6 +76,11 @@ services:
 networks:
     nesjs-network:
       driver: bridge
+    external-network:
+      driver: host
+    null-network:
+      driver: none
+
 
 volumes:
     postgres:
