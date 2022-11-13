@@ -50,7 +50,7 @@ services:
             PGDATA: /data/postgres
         volumes:
             - postgres:/postgres
-        ports:
+        # ports:
             # - "127.0.0.1:5432:5432"
             # - "5432:5432"
         networks:
