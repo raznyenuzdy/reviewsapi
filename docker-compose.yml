@@ -70,7 +70,7 @@ services:
         ports:
             # - 127.0.0.1:80:5050
             # - 127.0.0.1:5050:5050
-            - "5050:80"
+            - "5050:5.90.193.22:80"
         networks:
             - nesjs-network
         restart: unless-stopped
