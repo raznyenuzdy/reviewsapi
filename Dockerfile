@@ -3,9 +3,10 @@ FROM node:12.19.0-alpine3.9 AS development
 ARG NODE_ENV=development
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
-# COPY package.json ./
-# RUN npm install glob rimraf
-# RUN npm install --only=development
+COPY *.env /root/reviews
+COPY package.json ./
+RUN npm install glob rimraf
+RUN npm install --only=development
 COPY . .
 # RUN npm run build
 
