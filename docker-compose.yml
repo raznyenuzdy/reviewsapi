@@ -12,7 +12,7 @@ services:
             dockerfile: ./Dockerfile
         command: npm run start:debug
         ports:
-            # - 127.0.0.1:5432:5432
+            - 127.0.0.1:5432:5432
             - 5000:5000
         networks:
             - nesjs-network
