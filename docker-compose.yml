@@ -45,8 +45,8 @@ services:
         volumes:
             - postgres:/postgres
         ports:
-            # - "127.0.0.1:5432:5432"
-            - "5432:5432"
+            - "127.0.0.1:5432:172.19.0.2:5432"
+            # - "5432:5432"
         networks:
             - nesjs-network
         restart: unless-stopped
