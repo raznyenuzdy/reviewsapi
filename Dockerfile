@@ -5,10 +5,10 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
 COPY *.env /root/reviews
 COPY package.json ./
-RUN npm install glob rimraf
+# RUN npm install glob rimraf
 RUN npm install
 COPY . .
-# RUN npm run build
+RUN npm run build
 
 FROM node:12.19.0-alpine3.9 as production
 # USER node
@@ -18,7 +18,7 @@ WORKDIR /usr/src/app
 COPY package.json ./
 RUN npm install --production
 COPY . .
-# CMD ["node", "dist/main"]
+CMD ["node", "dist/main"]
 
 
 # FROM node:16-alpine as builder
