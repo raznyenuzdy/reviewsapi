@@ -12,7 +12,6 @@ services:
             dockerfile: ./Dockerfile
         command: npm run start:debug
         ports:
-            # - 127.0.0.1:5432:5432
             - 5000:5000
         networks:
             - nesjs-network
@@ -33,7 +32,6 @@ services:
             dockerfile: ./Dockerfile
         command: npm run start:prod
         ports:
-            # - 127.0.0.1:5432:5432
             - 7000:7000
         networks:
             - nesjs-network
@@ -51,9 +49,9 @@ services:
             PGDATA: /data/postgres
         volumes:
             - postgres:/postgres
-        # ports:
+        ports:
             # - "127.0.0.1:5432:5432"
-            # - "5432:5432"
+            - "5432:5432"
         networks:
             - nesjs-network
         restart: unless-stopped
